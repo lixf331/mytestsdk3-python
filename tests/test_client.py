@@ -352,7 +352,7 @@ class TestMytestsdk3:
         assert request.headers.get("Authorization") == f"Bearer {api_key}"
 
         with pytest.raises(Mytestsdk3Error):
-            with update_env(**{"MYTESTSDK3_API_KEY": Omit()}):
+            with update_env(**{"UF_API_KEY": Omit()}):
                 client2 = Mytestsdk3(base_url=base_url, api_key=None, _strict_response_validation=True)
             _ = client2
 
@@ -1183,7 +1183,7 @@ class TestAsyncMytestsdk3:
         assert request.headers.get("Authorization") == f"Bearer {api_key}"
 
         with pytest.raises(Mytestsdk3Error):
-            with update_env(**{"MYTESTSDK3_API_KEY": Omit()}):
+            with update_env(**{"UF_API_KEY": Omit()}):
                 client2 = AsyncMytestsdk3(base_url=base_url, api_key=None, _strict_response_validation=True)
             _ = client2
 
