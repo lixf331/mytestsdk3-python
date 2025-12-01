@@ -75,13 +75,13 @@ class Mytestsdk3(SyncAPIClient):
     ) -> None:
         """Construct a new synchronous Mytestsdk3 client instance.
 
-        This automatically infers the `api_key` argument from the `MYTESTSDK3_API_KEY` environment variable if it is not provided.
+        This automatically infers the `api_key` argument from the `UF_API_KEY` environment variable if it is not provided.
         """
         if api_key is None:
-            api_key = os.environ.get("MYTESTSDK3_API_KEY")
+            api_key = os.environ.get("UF_API_KEY")
         if api_key is None:
             raise Mytestsdk3Error(
-                "The api_key client option must be set either by passing api_key to the client or by setting the MYTESTSDK3_API_KEY environment variable"
+                "The api_key client option must be set either by passing api_key to the client or by setting the UF_API_KEY environment variable"
             )
         self.api_key = api_key
 
@@ -243,13 +243,13 @@ class AsyncMytestsdk3(AsyncAPIClient):
     ) -> None:
         """Construct a new async AsyncMytestsdk3 client instance.
 
-        This automatically infers the `api_key` argument from the `MYTESTSDK3_API_KEY` environment variable if it is not provided.
+        This automatically infers the `api_key` argument from the `UF_API_KEY` environment variable if it is not provided.
         """
         if api_key is None:
-            api_key = os.environ.get("MYTESTSDK3_API_KEY")
+            api_key = os.environ.get("UF_API_KEY")
         if api_key is None:
             raise Mytestsdk3Error(
-                "The api_key client option must be set either by passing api_key to the client or by setting the MYTESTSDK3_API_KEY environment variable"
+                "The api_key client option must be set either by passing api_key to the client or by setting the UF_API_KEY environment variable"
             )
         self.api_key = api_key
 

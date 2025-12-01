@@ -32,7 +32,7 @@ import os
 from mytestsdk3 import Mytestsdk3
 
 client = Mytestsdk3(
-    api_key=os.environ.get("MYTESTSDK3_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get("UF_API_KEY"),  # This is the default and can be omitted
 )
 
 response = client.chat.create_completion(
@@ -44,7 +44,7 @@ print(response.id)
 
 While you can provide an `api_key` keyword argument,
 we recommend using [python-dotenv](https://pypi.org/project/python-dotenv/)
-to add `MYTESTSDK3_API_KEY="My API Key"` to your `.env` file
+to add `UF_API_KEY="My API Key"` to your `.env` file
 so that your API Key is not stored in source control.
 
 ## Async usage
@@ -57,7 +57,7 @@ import asyncio
 from mytestsdk3 import AsyncMytestsdk3
 
 client = AsyncMytestsdk3(
-    api_key=os.environ.get("MYTESTSDK3_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get("UF_API_KEY"),  # This is the default and can be omitted
 )
 
 
