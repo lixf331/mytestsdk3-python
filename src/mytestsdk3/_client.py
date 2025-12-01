@@ -21,7 +21,6 @@ from ._types import (
 )
 from ._utils import is_given, get_async_library
 from ._version import __version__
-from .resources import chat
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import APIStatusError, Mytestsdk3Error
 from ._base_client import (
@@ -29,6 +28,7 @@ from ._base_client import (
     SyncAPIClient,
     AsyncAPIClient,
 )
+from .resources.chat import chat
 
 __all__ = [
     "Timeout",
