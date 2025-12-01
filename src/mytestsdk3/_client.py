@@ -21,6 +21,7 @@ from ._types import (
 )
 from ._utils import is_given, get_async_library
 from ._version import __version__
+from .resources import chat
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import APIStatusError, Mytestsdk3Error
 from ._base_client import (
@@ -28,7 +29,6 @@ from ._base_client import (
     SyncAPIClient,
     AsyncAPIClient,
 )
-from .resources.openai import openai
 
 __all__ = [
     "Timeout",
@@ -43,7 +43,7 @@ __all__ = [
 
 
 class Mytestsdk3(SyncAPIClient):
-    openai: openai.OpenAIResource
+    chat: chat.ChatResource
     with_raw_response: Mytestsdk3WithRawResponse
     with_streaming_response: Mytestsdk3WithStreamedResponse
 
@@ -101,7 +101,7 @@ class Mytestsdk3(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.openai = openai.OpenAIResource(self)
+        self.chat = chat.ChatResource(self)
         self.with_raw_response = Mytestsdk3WithRawResponse(self)
         self.with_streaming_response = Mytestsdk3WithStreamedResponse(self)
 
@@ -211,7 +211,7 @@ class Mytestsdk3(SyncAPIClient):
 
 
 class AsyncMytestsdk3(AsyncAPIClient):
-    openai: openai.AsyncOpenAIResource
+    chat: chat.AsyncChatResource
     with_raw_response: AsyncMytestsdk3WithRawResponse
     with_streaming_response: AsyncMytestsdk3WithStreamedResponse
 
@@ -269,7 +269,7 @@ class AsyncMytestsdk3(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.openai = openai.AsyncOpenAIResource(self)
+        self.chat = chat.AsyncChatResource(self)
         self.with_raw_response = AsyncMytestsdk3WithRawResponse(self)
         self.with_streaming_response = AsyncMytestsdk3WithStreamedResponse(self)
 
@@ -380,22 +380,22 @@ class AsyncMytestsdk3(AsyncAPIClient):
 
 class Mytestsdk3WithRawResponse:
     def __init__(self, client: Mytestsdk3) -> None:
-        self.openai = openai.OpenAIResourceWithRawResponse(client.openai)
+        self.chat = chat.ChatResourceWithRawResponse(client.chat)
 
 
 class AsyncMytestsdk3WithRawResponse:
     def __init__(self, client: AsyncMytestsdk3) -> None:
-        self.openai = openai.AsyncOpenAIResourceWithRawResponse(client.openai)
+        self.chat = chat.AsyncChatResourceWithRawResponse(client.chat)
 
 
 class Mytestsdk3WithStreamedResponse:
     def __init__(self, client: Mytestsdk3) -> None:
-        self.openai = openai.OpenAIResourceWithStreamingResponse(client.openai)
+        self.chat = chat.ChatResourceWithStreamingResponse(client.chat)
 
 
 class AsyncMytestsdk3WithStreamedResponse:
     def __init__(self, client: AsyncMytestsdk3) -> None:
-        self.openai = openai.AsyncOpenAIResourceWithStreamingResponse(client.openai)
+        self.chat = chat.AsyncChatResourceWithStreamingResponse(client.chat)
 
 
 Client = Mytestsdk3
