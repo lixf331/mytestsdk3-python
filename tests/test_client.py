@@ -745,7 +745,7 @@ class TestMytestsdk3:
         respx_mock.post("/openai/v1/chat/completions").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
-            client.chat.with_streaming_response.create_completion(messages=[{}], model="model").__enter__()
+            client.chat.completions.with_streaming_response.create(messages=[{}], model="model").__enter__()
 
         assert _get_open_connections(client) == 0
 
@@ -755,7 +755,7 @@ class TestMytestsdk3:
         respx_mock.post("/openai/v1/chat/completions").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            client.chat.with_streaming_response.create_completion(messages=[{}], model="model").__enter__()
+            client.chat.completions.with_streaming_response.create(messages=[{}], model="model").__enter__()
         assert _get_open_connections(client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
@@ -784,7 +784,7 @@ class TestMytestsdk3:
 
         respx_mock.post("/openai/v1/chat/completions").mock(side_effect=retry_handler)
 
-        response = client.chat.with_raw_response.create_completion(messages=[{}], model="model")
+        response = client.chat.completions.with_raw_response.create(messages=[{}], model="model")
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -808,7 +808,7 @@ class TestMytestsdk3:
 
         respx_mock.post("/openai/v1/chat/completions").mock(side_effect=retry_handler)
 
-        response = client.chat.with_raw_response.create_completion(
+        response = client.chat.completions.with_raw_response.create(
             messages=[{}], model="model", extra_headers={"x-stainless-retry-count": Omit()}
         )
 
@@ -833,7 +833,7 @@ class TestMytestsdk3:
 
         respx_mock.post("/openai/v1/chat/completions").mock(side_effect=retry_handler)
 
-        response = client.chat.with_raw_response.create_completion(
+        response = client.chat.completions.with_raw_response.create(
             messages=[{}], model="model", extra_headers={"x-stainless-retry-count": "42"}
         )
 
@@ -1585,7 +1585,9 @@ class TestAsyncMytestsdk3:
         respx_mock.post("/openai/v1/chat/completions").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
-            await async_client.chat.with_streaming_response.create_completion(messages=[{}], model="model").__aenter__()
+            await async_client.chat.completions.with_streaming_response.create(
+                messages=[{}], model="model"
+            ).__aenter__()
 
         assert _get_open_connections(async_client) == 0
 
@@ -1597,7 +1599,9 @@ class TestAsyncMytestsdk3:
         respx_mock.post("/openai/v1/chat/completions").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            await async_client.chat.with_streaming_response.create_completion(messages=[{}], model="model").__aenter__()
+            await async_client.chat.completions.with_streaming_response.create(
+                messages=[{}], model="model"
+            ).__aenter__()
         assert _get_open_connections(async_client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
@@ -1626,7 +1630,7 @@ class TestAsyncMytestsdk3:
 
         respx_mock.post("/openai/v1/chat/completions").mock(side_effect=retry_handler)
 
-        response = await client.chat.with_raw_response.create_completion(messages=[{}], model="model")
+        response = await client.chat.completions.with_raw_response.create(messages=[{}], model="model")
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -1650,7 +1654,7 @@ class TestAsyncMytestsdk3:
 
         respx_mock.post("/openai/v1/chat/completions").mock(side_effect=retry_handler)
 
-        response = await client.chat.with_raw_response.create_completion(
+        response = await client.chat.completions.with_raw_response.create(
             messages=[{}], model="model", extra_headers={"x-stainless-retry-count": Omit()}
         )
 
@@ -1675,7 +1679,7 @@ class TestAsyncMytestsdk3:
 
         respx_mock.post("/openai/v1/chat/completions").mock(side_effect=retry_handler)
 
-        response = await client.chat.with_raw_response.create_completion(
+        response = await client.chat.completions.with_raw_response.create(
             messages=[{}], model="model", extra_headers={"x-stainless-retry-count": "42"}
         )
 

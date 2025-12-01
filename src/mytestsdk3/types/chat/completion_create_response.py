@@ -3,9 +3,9 @@
 from typing import List, Optional
 from typing_extensions import Literal
 
-from .._models import BaseModel
+from ..._models import BaseModel
 
-__all__ = ["ChatCreateCompletionResponse", "Choice", "ChoiceMessage", "Usage", "UsagePromptTokensDetails"]
+__all__ = ["CompletionCreateResponse", "Choice", "ChoiceMessage", "Usage", "UsagePromptTokensDetails"]
 
 
 class ChoiceMessage(BaseModel):
@@ -42,7 +42,7 @@ class Usage(BaseModel):
     """Total number of tokens used in the request (prompt + completion)."""
 
 
-class ChatCreateCompletionResponse(BaseModel):
+class CompletionCreateResponse(BaseModel):
     id: Optional[str] = None
     """A unique identifier for the chat completion."""
 

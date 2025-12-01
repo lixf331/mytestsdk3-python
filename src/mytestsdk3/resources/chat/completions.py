@@ -6,44 +6,44 @@ from typing import Iterable, Optional
 
 import httpx
 
-from ..types import chat_create_completion_params
-from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
-from .._compat import cached_property
-from .._resource import SyncAPIResource, AsyncAPIResource
-from .._response import (
+from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from ..._utils import maybe_transform, async_maybe_transform
+from ..._compat import cached_property
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .._base_client import make_request_options
-from ..types.chat_create_completion_response import ChatCreateCompletionResponse
+from ...types.chat import completion_create_params
+from ..._base_client import make_request_options
+from ...types.chat.completion_create_response import CompletionCreateResponse
 
-__all__ = ["ChatResource", "AsyncChatResource"]
+__all__ = ["CompletionsResource", "AsyncCompletionsResource"]
 
 
-class ChatResource(SyncAPIResource):
+class CompletionsResource(SyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> ChatResourceWithRawResponse:
+    def with_raw_response(self) -> CompletionsResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/lixf331/mytestsdk3-python#accessing-raw-response-data-eg-headers
         """
-        return ChatResourceWithRawResponse(self)
+        return CompletionsResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> ChatResourceWithStreamingResponse:
+    def with_streaming_response(self) -> CompletionsResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/lixf331/mytestsdk3-python#with_streaming_response
         """
-        return ChatResourceWithStreamingResponse(self)
+        return CompletionsResourceWithStreamingResponse(self)
 
-    def create_completion(
+    def create(
         self,
         *,
         messages: Iterable[object],
@@ -61,7 +61,7 @@ class ChatResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ChatCreateCompletionResponse:
+    ) -> CompletionCreateResponse:
         """
         OpenAI-compatible chat completion endpoint.
 
@@ -127,36 +127,36 @@ class ChatResource(SyncAPIResource):
                     "temperature": temperature,
                     "top_p": top_p,
                 },
-                chat_create_completion_params.ChatCreateCompletionParams,
+                completion_create_params.CompletionCreateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ChatCreateCompletionResponse,
+            cast_to=CompletionCreateResponse,
         )
 
 
-class AsyncChatResource(AsyncAPIResource):
+class AsyncCompletionsResource(AsyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> AsyncChatResourceWithRawResponse:
+    def with_raw_response(self) -> AsyncCompletionsResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/lixf331/mytestsdk3-python#accessing-raw-response-data-eg-headers
         """
-        return AsyncChatResourceWithRawResponse(self)
+        return AsyncCompletionsResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncChatResourceWithStreamingResponse:
+    def with_streaming_response(self) -> AsyncCompletionsResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/lixf331/mytestsdk3-python#with_streaming_response
         """
-        return AsyncChatResourceWithStreamingResponse(self)
+        return AsyncCompletionsResourceWithStreamingResponse(self)
 
-    async def create_completion(
+    async def create(
         self,
         *,
         messages: Iterable[object],
@@ -174,7 +174,7 @@ class AsyncChatResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ChatCreateCompletionResponse:
+    ) -> CompletionCreateResponse:
         """
         OpenAI-compatible chat completion endpoint.
 
@@ -240,46 +240,46 @@ class AsyncChatResource(AsyncAPIResource):
                     "temperature": temperature,
                     "top_p": top_p,
                 },
-                chat_create_completion_params.ChatCreateCompletionParams,
+                completion_create_params.CompletionCreateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ChatCreateCompletionResponse,
+            cast_to=CompletionCreateResponse,
         )
 
 
-class ChatResourceWithRawResponse:
-    def __init__(self, chat: ChatResource) -> None:
-        self._chat = chat
+class CompletionsResourceWithRawResponse:
+    def __init__(self, completions: CompletionsResource) -> None:
+        self._completions = completions
 
-        self.create_completion = to_raw_response_wrapper(
-            chat.create_completion,
+        self.create = to_raw_response_wrapper(
+            completions.create,
         )
 
 
-class AsyncChatResourceWithRawResponse:
-    def __init__(self, chat: AsyncChatResource) -> None:
-        self._chat = chat
+class AsyncCompletionsResourceWithRawResponse:
+    def __init__(self, completions: AsyncCompletionsResource) -> None:
+        self._completions = completions
 
-        self.create_completion = async_to_raw_response_wrapper(
-            chat.create_completion,
+        self.create = async_to_raw_response_wrapper(
+            completions.create,
         )
 
 
-class ChatResourceWithStreamingResponse:
-    def __init__(self, chat: ChatResource) -> None:
-        self._chat = chat
+class CompletionsResourceWithStreamingResponse:
+    def __init__(self, completions: CompletionsResource) -> None:
+        self._completions = completions
 
-        self.create_completion = to_streamed_response_wrapper(
-            chat.create_completion,
+        self.create = to_streamed_response_wrapper(
+            completions.create,
         )
 
 
-class AsyncChatResourceWithStreamingResponse:
-    def __init__(self, chat: AsyncChatResource) -> None:
-        self._chat = chat
+class AsyncCompletionsResourceWithStreamingResponse:
+    def __init__(self, completions: AsyncCompletionsResource) -> None:
+        self._completions = completions
 
-        self.create_completion = async_to_streamed_response_wrapper(
-            chat.create_completion,
+        self.create = async_to_streamed_response_wrapper(
+            completions.create,
         )

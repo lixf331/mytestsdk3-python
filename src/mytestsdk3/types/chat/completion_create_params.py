@@ -5,10 +5,10 @@ from __future__ import annotations
 from typing import Iterable, Optional
 from typing_extensions import Required, TypedDict
 
-__all__ = ["ChatCreateCompletionParams"]
+__all__ = ["CompletionCreateParams"]
 
 
-class ChatCreateCompletionParams(TypedDict, total=False):
+class CompletionCreateParams(TypedDict, total=False):
     messages: Required[Iterable[object]]
     """A list of messages comprising the conversation so far."""
 

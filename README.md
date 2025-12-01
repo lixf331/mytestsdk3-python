@@ -35,11 +35,11 @@ client = Mytestsdk3(
     api_key=os.environ.get("UF_API_KEY"),  # This is the default and can be omitted
 )
 
-response = client.chat.create_completion(
+completion = client.chat.completions.create(
     messages=[{}],
     model="model",
 )
-print(response.id)
+print(completion.id)
 ```
 
 While you can provide an `api_key` keyword argument,
@@ -62,11 +62,11 @@ client = AsyncMytestsdk3(
 
 
 async def main() -> None:
-    response = await client.chat.create_completion(
+    completion = await client.chat.completions.create(
         messages=[{}],
         model="model",
     )
-    print(response.id)
+    print(completion.id)
 
 
 asyncio.run(main())
@@ -98,11 +98,11 @@ async def main() -> None:
         api_key="My API Key",
         http_client=DefaultAioHttpClient(),
     ) as client:
-        response = await client.chat.create_completion(
+        completion = await client.chat.completions.create(
             messages=[{}],
             model="model",
         )
-        print(response.id)
+        print(completion.id)
 
 
 asyncio.run(main())
@@ -133,7 +133,7 @@ from mytestsdk3 import Mytestsdk3
 client = Mytestsdk3()
 
 try:
-    client.chat.create_completion(
+    client.chat.completions.create(
         messages=[{}],
         model="model",
     )
@@ -179,7 +179,7 @@ client = Mytestsdk3(
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).chat.create_completion(
+client.with_options(max_retries=5).chat.completions.create(
     messages=[{}],
     model="model",
 )
@@ -205,7 +205,7 @@ client = Mytestsdk3(
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).chat.create_completion(
+client.with_options(timeout=5.0).chat.completions.create(
     messages=[{}],
     model="model",
 )
@@ -249,14 +249,14 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 from mytestsdk3 import Mytestsdk3
 
 client = Mytestsdk3()
-response = client.chat.with_raw_response.create_completion(
+response = client.chat.completions.with_raw_response.create(
     messages=[{}],
     model="model",
 )
 print(response.headers.get('X-My-Header'))
 
-chat = response.parse()  # get the object that `chat.create_completion()` would have returned
-print(chat.id)
+completion = response.parse()  # get the object that `chat.completions.create()` would have returned
+print(completion.id)
 ```
 
 These methods return an [`APIResponse`](https://github.com/lixf331/mytestsdk3-python/tree/main/src/mytestsdk3/_response.py) object.
@@ -270,7 +270,7 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.chat.with_streaming_response.create_completion(
+with client.chat.completions.with_streaming_response.create(
     messages=[{}],
     model="model",
 ) as response:
