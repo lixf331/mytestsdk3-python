@@ -53,7 +53,6 @@ class CompletionsResource(SyncAPIResource):
         best_of: Optional[int] | Omit = omit,
         chat_template_kwargs: Optional[Dict[str, object]] | Omit = omit,
         extra_args: Optional[Dict[str, object]] | Omit = omit,
-        api_extra_body: Optional[Dict[str, object]] | Omit = omit,
         frequency_penalty: Optional[float] | Omit = omit,
         ignore_eos: Optional[bool] | Omit = omit,
         include_stop_str_in_output: Optional[bool] | Omit = omit,
@@ -113,13 +112,6 @@ class CompletionsResource(SyncAPIResource):
               standard parameters. This allows passing custom parameters that may be specific
               to certain models or backends. The structure and accepted keys depend on the
               model and implementation being used.
-
-          api_extra_body: Additional parameters to include in the request body that are not part of the
-              standard API schema. These parameters are passed directly to the underlying
-              model or backend service. Useful for accessing experimental features,
-              model-specific options, or implementation-specific parameters that haven't been
-              standardized yet. The structure and accepted keys depend on the specific model
-              and backend implementation being used.
 
           frequency_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on their
               existing frequency in the text so far, decreasing the model's likelihood to
@@ -277,7 +269,6 @@ class CompletionsResource(SyncAPIResource):
                     "best_of": best_of,
                     "chat_template_kwargs": chat_template_kwargs,
                     "extra_args": extra_args,
-                    "api_extra_body": api_extra_body,
                     "frequency_penalty": frequency_penalty,
                     "ignore_eos": ignore_eos,
                     "include_stop_str_in_output": include_stop_str_in_output,
@@ -346,7 +337,6 @@ class AsyncCompletionsResource(AsyncAPIResource):
         best_of: Optional[int] | Omit = omit,
         chat_template_kwargs: Optional[Dict[str, object]] | Omit = omit,
         extra_args: Optional[Dict[str, object]] | Omit = omit,
-        api_extra_body: Optional[Dict[str, object]] | Omit = omit,
         frequency_penalty: Optional[float] | Omit = omit,
         ignore_eos: Optional[bool] | Omit = omit,
         include_stop_str_in_output: Optional[bool] | Omit = omit,
@@ -406,13 +396,6 @@ class AsyncCompletionsResource(AsyncAPIResource):
               standard parameters. This allows passing custom parameters that may be specific
               to certain models or backends. The structure and accepted keys depend on the
               model and implementation being used.
-
-          api_extra_body: Additional parameters to include in the request body that are not part of the
-              standard API schema. These parameters are passed directly to the underlying
-              model or backend service. Useful for accessing experimental features,
-              model-specific options, or implementation-specific parameters that haven't been
-              standardized yet. The structure and accepted keys depend on the specific model
-              and backend implementation being used.
 
           frequency_penalty: Number between -2.0 and 2.0. Positive values penalize new tokens based on their
               existing frequency in the text so far, decreasing the model's likelihood to
@@ -570,7 +553,6 @@ class AsyncCompletionsResource(AsyncAPIResource):
                     "best_of": best_of,
                     "chat_template_kwargs": chat_template_kwargs,
                     "extra_args": extra_args,
-                    "api_extra_body": api_extra_body,
                     "frequency_penalty": frequency_penalty,
                     "ignore_eos": ignore_eos,
                     "include_stop_str_in_output": include_stop_str_in_output,
