@@ -745,7 +745,15 @@ class TestMytestsdk3:
         respx_mock.post("/openai/v1/chat/completions").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
-            client.chat.completions.with_streaming_response.create(messages=[{}], model="model").__enter__()
+            client.chat.completions.with_streaming_response.create(
+                messages=[
+                    {
+                        "content": "Explain the importance of low latency LLMs",
+                        "role": "user",
+                    }
+                ],
+                model="meta-llama/Llama-3.3-70B-Instruct1",
+            ).__enter__()
 
         assert _get_open_connections(client) == 0
 
@@ -755,7 +763,15 @@ class TestMytestsdk3:
         respx_mock.post("/openai/v1/chat/completions").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            client.chat.completions.with_streaming_response.create(messages=[{}], model="model").__enter__()
+            client.chat.completions.with_streaming_response.create(
+                messages=[
+                    {
+                        "content": "Explain the importance of low latency LLMs",
+                        "role": "user",
+                    }
+                ],
+                model="meta-llama/Llama-3.3-70B-Instruct1",
+            ).__enter__()
         assert _get_open_connections(client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
@@ -784,7 +800,15 @@ class TestMytestsdk3:
 
         respx_mock.post("/openai/v1/chat/completions").mock(side_effect=retry_handler)
 
-        response = client.chat.completions.with_raw_response.create(messages=[{}], model="model")
+        response = client.chat.completions.with_raw_response.create(
+            messages=[
+                {
+                    "content": "Explain the importance of low latency LLMs",
+                    "role": "user",
+                }
+            ],
+            model="meta-llama/Llama-3.3-70B-Instruct1",
+        )
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -809,7 +833,14 @@ class TestMytestsdk3:
         respx_mock.post("/openai/v1/chat/completions").mock(side_effect=retry_handler)
 
         response = client.chat.completions.with_raw_response.create(
-            messages=[{}], model="model", extra_headers={"x-stainless-retry-count": Omit()}
+            messages=[
+                {
+                    "content": "Explain the importance of low latency LLMs",
+                    "role": "user",
+                }
+            ],
+            model="meta-llama/Llama-3.3-70B-Instruct1",
+            extra_headers={"x-stainless-retry-count": Omit()},
         )
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
@@ -834,7 +865,14 @@ class TestMytestsdk3:
         respx_mock.post("/openai/v1/chat/completions").mock(side_effect=retry_handler)
 
         response = client.chat.completions.with_raw_response.create(
-            messages=[{}], model="model", extra_headers={"x-stainless-retry-count": "42"}
+            messages=[
+                {
+                    "content": "Explain the importance of low latency LLMs",
+                    "role": "user",
+                }
+            ],
+            model="meta-llama/Llama-3.3-70B-Instruct1",
+            extra_headers={"x-stainless-retry-count": "42"},
         )
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
@@ -1586,7 +1624,13 @@ class TestAsyncMytestsdk3:
 
         with pytest.raises(APITimeoutError):
             await async_client.chat.completions.with_streaming_response.create(
-                messages=[{}], model="model"
+                messages=[
+                    {
+                        "content": "Explain the importance of low latency LLMs",
+                        "role": "user",
+                    }
+                ],
+                model="meta-llama/Llama-3.3-70B-Instruct1",
             ).__aenter__()
 
         assert _get_open_connections(async_client) == 0
@@ -1600,7 +1644,13 @@ class TestAsyncMytestsdk3:
 
         with pytest.raises(APIStatusError):
             await async_client.chat.completions.with_streaming_response.create(
-                messages=[{}], model="model"
+                messages=[
+                    {
+                        "content": "Explain the importance of low latency LLMs",
+                        "role": "user",
+                    }
+                ],
+                model="meta-llama/Llama-3.3-70B-Instruct1",
             ).__aenter__()
         assert _get_open_connections(async_client) == 0
 
@@ -1630,7 +1680,15 @@ class TestAsyncMytestsdk3:
 
         respx_mock.post("/openai/v1/chat/completions").mock(side_effect=retry_handler)
 
-        response = await client.chat.completions.with_raw_response.create(messages=[{}], model="model")
+        response = await client.chat.completions.with_raw_response.create(
+            messages=[
+                {
+                    "content": "Explain the importance of low latency LLMs",
+                    "role": "user",
+                }
+            ],
+            model="meta-llama/Llama-3.3-70B-Instruct1",
+        )
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -1655,7 +1713,14 @@ class TestAsyncMytestsdk3:
         respx_mock.post("/openai/v1/chat/completions").mock(side_effect=retry_handler)
 
         response = await client.chat.completions.with_raw_response.create(
-            messages=[{}], model="model", extra_headers={"x-stainless-retry-count": Omit()}
+            messages=[
+                {
+                    "content": "Explain the importance of low latency LLMs",
+                    "role": "user",
+                }
+            ],
+            model="meta-llama/Llama-3.3-70B-Instruct1",
+            extra_headers={"x-stainless-retry-count": Omit()},
         )
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
@@ -1680,7 +1745,14 @@ class TestAsyncMytestsdk3:
         respx_mock.post("/openai/v1/chat/completions").mock(side_effect=retry_handler)
 
         response = await client.chat.completions.with_raw_response.create(
-            messages=[{}], model="model", extra_headers={"x-stainless-retry-count": "42"}
+            messages=[
+                {
+                    "content": "Explain the importance of low latency LLMs",
+                    "role": "user",
+                }
+            ],
+            model="meta-llama/Llama-3.3-70B-Instruct1",
+            extra_headers={"x-stainless-retry-count": "42"},
         )
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"

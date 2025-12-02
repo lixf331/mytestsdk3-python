@@ -36,8 +36,13 @@ client = Mytestsdk3(
 )
 
 completion = client.chat.completions.create(
-    messages=[{}],
-    model="model",
+    messages=[
+        {
+            "role": "user",
+            "content": "Explain the importance of low latency LLMs",
+        }
+    ],
+    model="meta-llama/Llama-3.3-70B-Instruct",
 )
 print(completion.id)
 ```
@@ -63,8 +68,13 @@ client = AsyncMytestsdk3(
 
 async def main() -> None:
     completion = await client.chat.completions.create(
-        messages=[{}],
-        model="model",
+        messages=[
+            {
+                "role": "user",
+                "content": "Explain the importance of low latency LLMs",
+            }
+        ],
+        model="meta-llama/Llama-3.3-70B-Instruct",
     )
     print(completion.id)
 
@@ -99,8 +109,13 @@ async def main() -> None:
         http_client=DefaultAioHttpClient(),
     ) as client:
         completion = await client.chat.completions.create(
-            messages=[{}],
-            model="model",
+            messages=[
+                {
+                    "role": "user",
+                    "content": "Explain the importance of low latency LLMs",
+                }
+            ],
+            model="meta-llama/Llama-3.3-70B-Instruct",
         )
         print(completion.id)
 
@@ -116,6 +131,28 @@ Nested request parameters are [TypedDicts](https://docs.python.org/3/library/typ
 - Converting to a dictionary, `model.to_dict()`
 
 Typed requests and responses provide autocomplete and documentation within your editor. If you would like to see type errors in VS Code to help catch bugs earlier, set `python.analysis.typeCheckingMode` to `basic`.
+
+## Nested params
+
+Nested parameters are dictionaries, typed using `TypedDict`, for example:
+
+```python
+from mytestsdk3 import Mytestsdk3
+
+client = Mytestsdk3()
+
+completion = client.chat.completions.create(
+    messages=[
+        {
+            "content": "Explain the importance of low latency LLMs",
+            "role": "user",
+        }
+    ],
+    model="meta-llama/Llama-3.3-70B-Instruct1",
+    stream_options={},
+)
+print(completion.stream_options)
+```
 
 ## Handling errors
 
@@ -134,8 +171,13 @@ client = Mytestsdk3()
 
 try:
     client.chat.completions.create(
-        messages=[{}],
-        model="model",
+        messages=[
+            {
+                "role": "user",
+                "content": "Explain the importance of low latency LLMs",
+            }
+        ],
+        model="meta-llama/Llama-3.3-70B-Instruct",
     )
 except mytestsdk3.APIConnectionError as e:
     print("The server could not be reached")
@@ -180,8 +222,13 @@ client = Mytestsdk3(
 
 # Or, configure per-request:
 client.with_options(max_retries=5).chat.completions.create(
-    messages=[{}],
-    model="model",
+    messages=[
+        {
+            "role": "user",
+            "content": "Explain the importance of low latency LLMs",
+        }
+    ],
+    model="meta-llama/Llama-3.3-70B-Instruct",
 )
 ```
 
@@ -206,8 +253,13 @@ client = Mytestsdk3(
 
 # Override per-request:
 client.with_options(timeout=5.0).chat.completions.create(
-    messages=[{}],
-    model="model",
+    messages=[
+        {
+            "role": "user",
+            "content": "Explain the importance of low latency LLMs",
+        }
+    ],
+    model="meta-llama/Llama-3.3-70B-Instruct",
 )
 ```
 
@@ -250,8 +302,11 @@ from mytestsdk3 import Mytestsdk3
 
 client = Mytestsdk3()
 response = client.chat.completions.with_raw_response.create(
-    messages=[{}],
-    model="model",
+    messages=[{
+        "role": "user",
+        "content": "Explain the importance of low latency LLMs",
+    }],
+    model="meta-llama/Llama-3.3-70B-Instruct",
 )
 print(response.headers.get('X-My-Header'))
 
@@ -271,8 +326,13 @@ To stream the response body, use `.with_streaming_response` instead, which requi
 
 ```python
 with client.chat.completions.with_streaming_response.create(
-    messages=[{}],
-    model="model",
+    messages=[
+        {
+            "role": "user",
+            "content": "Explain the importance of low latency LLMs",
+        }
+    ],
+    model="meta-llama/Llama-3.3-70B-Instruct",
 ) as response:
     print(response.headers.get("X-My-Header"))
 

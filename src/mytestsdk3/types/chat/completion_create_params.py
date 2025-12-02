@@ -2,18 +2,144 @@
 
 from __future__ import annotations
 
-from typing import Iterable, Optional
-from typing_extensions import Required, TypedDict
+from typing import Dict, Union, Iterable, Optional
+from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
-__all__ = ["CompletionCreateParams"]
+from ..._types import SequenceNotStr
+from ..._utils import PropertyInfo
+
+__all__ = [
+    "CompletionCreateParams",
+    "Message",
+    "MessageChatCompletionDeveloperMessageParam",
+    "MessageChatCompletionDeveloperMessageParamContentUnionMember1",
+    "MessageChatCompletionSystemMessageParam",
+    "MessageChatCompletionSystemMessageParamContentUnionMember1",
+    "MessageChatCompletionUserMessageParam",
+    "MessageChatCompletionUserMessageParamContentUnionMember1",
+    "MessageChatCompletionUserMessageParamContentUnionMember1ChatCompletionContentPartTextParam",
+    "MessageChatCompletionUserMessageParamContentUnionMember1ChatCompletionContentPartImageParam",
+    "MessageChatCompletionUserMessageParamContentUnionMember1ChatCompletionContentPartImageParamImageURL",
+    "MessageChatCompletionUserMessageParamContentUnionMember1ChatCompletionContentPartInputAudioParam",
+    "MessageChatCompletionUserMessageParamContentUnionMember1ChatCompletionContentPartInputAudioParamInputAudio",
+    "MessageChatCompletionUserMessageParamContentUnionMember1File",
+    "MessageChatCompletionUserMessageParamContentUnionMember1FileFile",
+    "MessageChatCompletionAssistantMessageParam",
+    "MessageChatCompletionAssistantMessageParamAudio",
+    "MessageChatCompletionAssistantMessageParamContentUnionMember1",
+    "MessageChatCompletionAssistantMessageParamContentUnionMember1ChatCompletionContentPartTextParam",
+    "MessageChatCompletionAssistantMessageParamContentUnionMember1ChatCompletionContentPartRefusalParam",
+    "MessageChatCompletionAssistantMessageParamFunctionCall",
+    "MessageChatCompletionAssistantMessageParamToolCall",
+    "MessageChatCompletionAssistantMessageParamToolCallFunction",
+    "MessageChatCompletionToolMessageParam",
+    "MessageChatCompletionToolMessageParamContentUnionMember1",
+    "MessageChatCompletionFunctionMessageParam",
+    "LogitsProcessor",
+    "LogitsProcessorLogitsProcessorConstructor",
+    "ResponseFormat",
+    "ResponseFormatResponseFormat",
+    "ResponseFormatResponseFormatJsonSchema",
+    "ResponseFormatStructuralTagResponseFormat",
+    "ResponseFormatStructuralTagResponseFormatStructure",
+    "StreamOptions",
+    "ToolChoice",
+    "ToolChoiceChatCompletionNamedToolChoiceParam",
+    "ToolChoiceChatCompletionNamedToolChoiceParamFunction",
+    "Tool",
+    "ToolFunction",
+]
 
 
 class CompletionCreateParams(TypedDict, total=False):
-    messages: Required[Iterable[object]]
+    messages: Required[Iterable[Message]]
     """A list of messages comprising the conversation so far."""
 
     model: Required[str]
     """ID of the model to use."""
+
+    allowed_token_ids: Optional[Iterable[int]]
+    """Whitelist of token IDs that can be generated.
+
+    Only tokens in this list will be considered during sampling. If specified, all
+    other tokens are excluded. Useful for constrained generation, structured output,
+    or limiting output to specific vocabulary (e.g., only numbers, only specific
+    keywords). If null, all tokens are allowed.
+    """
+
+    best_of: Optional[int]
+    """Generate multiple completions and return the best one. Ignored when n is set."""
+
+    chat_template_kwargs: Optional[Dict[str, object]]
+    """Additional keyword args to pass to the template renderer.
+
+    Will be accessible by the chat template.
+    """
+
+    extra_args: Optional[Dict[str, object]]
+    """
+    Additional model-specific or implementation-specific arguments not covered by
+    standard parameters. This allows passing custom parameters that may be specific
+    to certain models or backends. The structure and accepted keys depend on the
+    model and implementation being used.
+    """
+
+    api_extra_body: Annotated[Optional[Dict[str, object]], PropertyInfo(alias="extra_body")]
+    """
+    Additional parameters to include in the request body that are not part of the
+    standard API schema. These parameters are passed directly to the underlying
+    model or backend service. Useful for accessing experimental features,
+    model-specific options, or implementation-specific parameters that haven't been
+    standardized yet. The structure and accepted keys depend on the specific model
+    and backend implementation being used.
+    """
+
+    frequency_penalty: Optional[float]
+    """Number between -2.0 and 2.0.
+
+    Positive values penalize new tokens based on their existing frequency in the
+    text so far, decreasing the model's likelihood to repeat the same line verbatim.
+    """
+
+    ignore_eos: Optional[bool]
+    """If true, ignore the EOS (End of Sequence) token and continue generating.
+
+    When false, generation stops when EOS token is encountered.
+    """
+
+    include_stop_str_in_output: Optional[bool]
+    """
+    If true, the stop sequence that triggered the stop will be included in the
+    output text. By default (false), stop sequences are removed from the output.
+    """
+
+    logit_bias: Optional[Dict[str, int]]
+    """Modify the likelihood of specified tokens appearing in the completion.
+
+    Accepts a JSON object that maps tokens (specified by their token ID in the
+    tokenizer) to an associated bias value from -100 to 100. Mathematically, the
+    bias is added to the logits generated by the model prior to sampling. The exact
+    effect will vary per model, but values between -1 and 1 should decrease or
+    increase likelihood of selection; values like -100 or 100 should result in a ban
+    or exclusive selection of the relevant token.
+    """
+
+    logits_processors: Optional[SequenceNotStr[LogitsProcessor]]
+    """
+    A list of either qualified names of logits processors, or constructor objects,
+    to apply when sampling. A constructor is a JSON object with a required
+    'qualname' field specifying the qualified name of the processor class/factory,
+    and optional 'args' and 'kwargs' fields containing positional and keyword
+    arguments. For example: {'qualname': 'my_module.MyLogitsProcessor', 'args': [1,
+    2], 'kwargs': {'param': 'value'}}.
+    """
+
+    logprobs: Optional[bool]
+    """Whether to return log probabilities of the output tokens or not.
+
+    If true, returns the log probabilities of each output token returned in the
+    `content` of `message`.
+    """
 
     max_tokens: Optional[int]
     """The maximum number of tokens that can be generated in the chat completion.
@@ -22,8 +148,71 @@ class CompletionCreateParams(TypedDict, total=False):
     context length.
     """
 
+    min_p: Optional[float]
+    """Minimum probability threshold relative to the most likely token.
+
+    Only tokens with probability >= (max_probability \\** min_p) are considered. For
+    example, if the top token has probability 0.4 and min_p=0.1, only tokens with
+    probability >= 0.04 are sampled.
+    """
+
+    min_tokens: Optional[int]
+    """The minimum number of tokens to generate.
+
+    Generation will continue until at least this many tokens are produced, even if
+    stop sequences or EOS tokens are encountered. Useful for ensuring a minimum
+    response length.
+    """
+
     n: Optional[int]
     """How many chat completion choices to generate for each input message."""
+
+    output_kind: Optional[Literal["cumulative", "delta", "final_only"]]
+    """Controls the format of streaming output for incremental text generation.
+
+    - cumulative: Return the full accumulated text so far (default for most use
+      cases). - delta: Return only the newly generated tokens since the last update
+      (useful for streaming UIs). - final_only: Return only the complete final
+      response, no intermediate updates.
+    """
+
+    presence_penalty: Optional[float]
+    """Number between -2.0 and 2.0.
+
+    Positive values penalize new tokens based on whether they appear in the text so
+    far, increasing the model's likelihood to talk about new topics.
+    """
+
+    prompt_logprobs: Optional[int]
+    """
+    Number of most likely tokens to return at each prompt token position, from the
+    end of the prompt. For example, prompt_logprobs=5 will return the top 5 most
+    likely tokens and their log probabilities for the last 5 tokens in the prompt.
+    Useful for analyzing model confidence on input.
+    """
+
+    reasoning_effort: Optional[Literal["low", "medium", "high"]]
+    """
+    Controls the amount of reasoning effort the model applies when generating
+    responses. Higher values typically result in more thorough reasoning but may
+    increase latency and cost.
+    """
+
+    repetition_penalty: Optional[float]
+    """Penalty for repeating tokens.
+
+    Values > 1.0 reduce repetition. Default is 1.0 (no penalty). Higher values
+    (e.g., 1.2) make the model less likely to repeat the same token.
+    """
+
+    response_format: Optional[ResponseFormat]
+    """Specifies the format of the response.
+
+    Controls how the model structures its output. - text: Plain text output
+    (default) - json_object: Ensures the response is valid JSON - json_schema:
+    Validates response against a JSON schema - structural_tag: Uses custom
+    structural tags for structured output
+    """
 
     seed: Optional[int]
     """
@@ -32,10 +221,33 @@ class CompletionCreateParams(TypedDict, total=False):
     the same result.
     """
 
-    stop: Optional[str]
-    """the API will stop generating further tokens.
+    skip_special_tokens: Optional[bool]
+    """
+    Whether to skip special tokens (e.g., BOS, EOS, padding tokens) in the output
+    text. If true, special tokens are filtered out from the response. If false,
+    special tokens are included in the output, which may be useful for debugging or
+    token-level analysis.
+    """
+
+    spaces_between_special_tokens: Optional[bool]
+    """Whether to add spaces between special tokens when decoding.
+
+    If true, spaces are inserted between special tokens in the output. If false,
+    special tokens are concatenated without spaces. This affects the formatting of
+    the decoded text output.
+    """
+
+    stop: Union[Optional[str], SequenceNotStr[str], None]
+    """where the API will stop generating further tokens.
 
     The returned text will not contain the stop sequence.
+    """
+
+    stop_token_ids: Optional[Iterable[int]]
+    """List of token IDs where the API will stop generating further tokens.
+
+    The returned text will not contain these tokens. Useful when you know specific
+    token IDs to stop at (e.g., end-of-text tokens).
     """
 
     stream: Optional[bool]
@@ -47,12 +259,48 @@ class CompletionCreateParams(TypedDict, total=False):
     message.
     """
 
+    stream_options: Optional[StreamOptions]
+    """Options for controlling streaming behavior.
+
+    Only used when stream is true. Controls whether usage statistics are included
+    and how they are reported during streaming.
+    """
+
     temperature: Optional[float]
     """What sampling temperature to use, between 0 and 2.
 
     Higher values like 0.8 will make the output more random, while lower values like
     0.2 will make it more focused and deterministic. We generally recommend altering
     this or top_p but not both.
+    """
+
+    tool_choice: Optional[ToolChoice]
+    """
+    Controls which (if any) tool is called by the model. `none` means the model will
+    not call any tool and instead generates a message. `auto` means the model can
+    pick between generating a message or calling one or more tools. `required` means
+    the model must call one or more tools. Specifying a particular tool via
+    `{"type": "function", "function": {"name": "my_function"}}` forces the model to
+    call that tool.
+
+    `none` is the default when no tools are present. `auto` is the default if tools
+    are present.
+    """
+
+    tools: Optional[Iterable[Tool]]
+    """A list of tools (functions) the model may call.
+
+    The model can choose to call one or more of these functions during the
+    conversation. Each tool defines a function with a name, description, and
+    parameters (JSON schema). The model will generate function calls in a structured
+    format when it determines a function should be invoked.
+    """
+
+    top_k: Optional[int]
+    """Limit sampling to the top K most likely tokens.
+
+    For example, top_k=10 means only the 10 most probable tokens are considered.
+    Lower values make output more focused, higher values more diverse.
     """
 
     top_p: Optional[float]
@@ -62,3 +310,331 @@ class CompletionCreateParams(TypedDict, total=False):
     means only the tokens comprising the top 10% probability mass are considered. We
     generally recommend altering this or temperature but not both.
     """
+
+    truncate_prompt_tokens: Optional[int]
+    """Maximum number of prompt tokens to keep.
+
+    If prompt exceeds this limit, tokens will be truncated. Use -1 to disable
+    truncation. Positive values truncate from the beginning, keeping the end. Useful
+    when prompt is too long for the model's context window.
+    """
+
+
+class MessageChatCompletionDeveloperMessageParamContentUnionMember1(TypedDict, total=False):
+    text: Required[str]
+
+    type: Required[Literal["text"]]
+
+
+class MessageChatCompletionDeveloperMessageParam(TypedDict, total=False):
+    content: Required[Union[str, Iterable[MessageChatCompletionDeveloperMessageParamContentUnionMember1]]]
+
+    role: Required[Literal["developer"]]
+
+    name: str
+
+
+class MessageChatCompletionSystemMessageParamContentUnionMember1(TypedDict, total=False):
+    text: Required[str]
+
+    type: Required[Literal["text"]]
+
+
+class MessageChatCompletionSystemMessageParam(TypedDict, total=False):
+    content: Required[Union[str, Iterable[MessageChatCompletionSystemMessageParamContentUnionMember1]]]
+
+    role: Required[Literal["system"]]
+
+    name: str
+
+
+class MessageChatCompletionUserMessageParamContentUnionMember1ChatCompletionContentPartTextParam(
+    TypedDict, total=False
+):
+    text: Required[str]
+
+    type: Required[Literal["text"]]
+
+
+class MessageChatCompletionUserMessageParamContentUnionMember1ChatCompletionContentPartImageParamImageURL(
+    TypedDict, total=False
+):
+    url: Required[str]
+
+    detail: Literal["auto", "low", "high"]
+
+
+class MessageChatCompletionUserMessageParamContentUnionMember1ChatCompletionContentPartImageParam(
+    TypedDict, total=False
+):
+    image_url: Required[
+        MessageChatCompletionUserMessageParamContentUnionMember1ChatCompletionContentPartImageParamImageURL
+    ]
+
+    type: Required[Literal["image_url"]]
+
+
+class MessageChatCompletionUserMessageParamContentUnionMember1ChatCompletionContentPartInputAudioParamInputAudio(
+    TypedDict, total=False
+):
+    data: Required[str]
+
+    format: Required[Literal["wav", "mp3"]]
+
+
+class MessageChatCompletionUserMessageParamContentUnionMember1ChatCompletionContentPartInputAudioParam(
+    TypedDict, total=False
+):
+    input_audio: Required[
+        MessageChatCompletionUserMessageParamContentUnionMember1ChatCompletionContentPartInputAudioParamInputAudio
+    ]
+
+    type: Required[Literal["input_audio"]]
+
+
+class MessageChatCompletionUserMessageParamContentUnionMember1FileFile(TypedDict, total=False):
+    file_data: str
+
+    file_id: str
+
+    filename: str
+
+
+class MessageChatCompletionUserMessageParamContentUnionMember1File(TypedDict, total=False):
+    file: Required[MessageChatCompletionUserMessageParamContentUnionMember1FileFile]
+
+    type: Required[Literal["file"]]
+
+
+MessageChatCompletionUserMessageParamContentUnionMember1: TypeAlias = Union[
+    MessageChatCompletionUserMessageParamContentUnionMember1ChatCompletionContentPartTextParam,
+    MessageChatCompletionUserMessageParamContentUnionMember1ChatCompletionContentPartImageParam,
+    MessageChatCompletionUserMessageParamContentUnionMember1ChatCompletionContentPartInputAudioParam,
+    MessageChatCompletionUserMessageParamContentUnionMember1File,
+]
+
+
+class MessageChatCompletionUserMessageParam(TypedDict, total=False):
+    content: Required[Union[str, Iterable[MessageChatCompletionUserMessageParamContentUnionMember1]]]
+
+    role: Required[Literal["user"]]
+
+    name: str
+
+
+class MessageChatCompletionAssistantMessageParamAudio(TypedDict, total=False):
+    id: Required[str]
+
+
+class MessageChatCompletionAssistantMessageParamContentUnionMember1ChatCompletionContentPartTextParam(
+    TypedDict, total=False
+):
+    text: Required[str]
+
+    type: Required[Literal["text"]]
+
+
+class MessageChatCompletionAssistantMessageParamContentUnionMember1ChatCompletionContentPartRefusalParam(
+    TypedDict, total=False
+):
+    refusal: Required[str]
+
+    type: Required[Literal["refusal"]]
+
+
+MessageChatCompletionAssistantMessageParamContentUnionMember1: TypeAlias = Union[
+    MessageChatCompletionAssistantMessageParamContentUnionMember1ChatCompletionContentPartTextParam,
+    MessageChatCompletionAssistantMessageParamContentUnionMember1ChatCompletionContentPartRefusalParam,
+]
+
+
+class MessageChatCompletionAssistantMessageParamFunctionCall(TypedDict, total=False):
+    arguments: Required[str]
+
+    name: Required[str]
+
+
+class MessageChatCompletionAssistantMessageParamToolCallFunction(TypedDict, total=False):
+    arguments: Required[str]
+
+    name: Required[str]
+
+
+class MessageChatCompletionAssistantMessageParamToolCall(TypedDict, total=False):
+    id: Required[str]
+
+    function: Required[MessageChatCompletionAssistantMessageParamToolCallFunction]
+
+    type: Required[Literal["function"]]
+
+
+class MessageChatCompletionAssistantMessageParam(TypedDict, total=False):
+    role: Required[Literal["assistant"]]
+
+    audio: Optional[MessageChatCompletionAssistantMessageParamAudio]
+
+    content: Union[str, Iterable[MessageChatCompletionAssistantMessageParamContentUnionMember1], None]
+
+    function_call: Optional[MessageChatCompletionAssistantMessageParamFunctionCall]
+
+    name: str
+
+    refusal: Optional[str]
+
+    tool_calls: Iterable[MessageChatCompletionAssistantMessageParamToolCall]
+
+
+class MessageChatCompletionToolMessageParamContentUnionMember1(TypedDict, total=False):
+    text: Required[str]
+
+    type: Required[Literal["text"]]
+
+
+class MessageChatCompletionToolMessageParam(TypedDict, total=False):
+    content: Required[Union[str, Iterable[MessageChatCompletionToolMessageParamContentUnionMember1]]]
+
+    role: Required[Literal["tool"]]
+
+    tool_call_id: Required[str]
+
+
+class MessageChatCompletionFunctionMessageParam(TypedDict, total=False):
+    content: Required[Optional[str]]
+
+    name: Required[str]
+
+    role: Required[Literal["function"]]
+
+
+Message: TypeAlias = Union[
+    MessageChatCompletionDeveloperMessageParam,
+    MessageChatCompletionSystemMessageParam,
+    MessageChatCompletionUserMessageParam,
+    MessageChatCompletionAssistantMessageParam,
+    MessageChatCompletionToolMessageParam,
+    MessageChatCompletionFunctionMessageParam,
+]
+
+
+class LogitsProcessorLogitsProcessorConstructor(TypedDict, total=False):
+    qualname: Required[str]
+
+    args: Optional[Iterable[object]]
+
+    kwargs: Optional[Dict[str, object]]
+
+
+LogitsProcessor: TypeAlias = Union[str, LogitsProcessorLogitsProcessorConstructor]
+
+
+class ResponseFormatResponseFormatJsonSchemaTyped(TypedDict, total=False):
+    name: Required[str]
+
+    description: Optional[str]
+
+    schema: Optional[Dict[str, object]]
+
+    strict: Optional[bool]
+
+
+ResponseFormatResponseFormatJsonSchema: TypeAlias = Union[
+    ResponseFormatResponseFormatJsonSchemaTyped, Dict[str, object]
+]
+
+
+class ResponseFormatResponseFormatTyped(TypedDict, total=False):
+    type: Required[Literal["text", "json_object", "json_schema"]]
+
+    json_schema: Optional[ResponseFormatResponseFormatJsonSchema]
+
+
+ResponseFormatResponseFormat: TypeAlias = Union[ResponseFormatResponseFormatTyped, Dict[str, object]]
+
+
+class ResponseFormatStructuralTagResponseFormatStructureTyped(TypedDict, total=False):
+    begin: Required[str]
+
+    end: Required[str]
+
+    schema: Optional[Dict[str, object]]
+
+
+ResponseFormatStructuralTagResponseFormatStructure: TypeAlias = Union[
+    ResponseFormatStructuralTagResponseFormatStructureTyped, Dict[str, object]
+]
+
+
+class ResponseFormatStructuralTagResponseFormatTyped(TypedDict, total=False):
+    structures: Required[Iterable[ResponseFormatStructuralTagResponseFormatStructure]]
+
+    triggers: Required[SequenceNotStr[str]]
+
+    type: Required[Literal["structural_tag"]]
+
+
+ResponseFormatStructuralTagResponseFormat: TypeAlias = Union[
+    ResponseFormatStructuralTagResponseFormatTyped, Dict[str, object]
+]
+
+ResponseFormat: TypeAlias = Union[ResponseFormatResponseFormat, ResponseFormatStructuralTagResponseFormat]
+
+
+class StreamOptionsTyped(TypedDict, total=False):
+    continuous_usage_stats: Optional[bool]
+    """Whether to include usage statistics in each streaming chunk.
+
+    If true, usage stats are included continuously as tokens are generated. If
+    false, usage stats are only included in the final message.
+    """
+
+    include_usage: Optional[bool]
+    """Whether to include usage statistics in streaming responses.
+
+    If true, usage information (tokens used, etc.) will be included in the stream
+    events.
+    """
+
+
+StreamOptions: TypeAlias = Union[StreamOptionsTyped, Dict[str, object]]
+
+
+class ToolChoiceChatCompletionNamedToolChoiceParamFunctionTyped(TypedDict, total=False):
+    name: Required[str]
+
+
+ToolChoiceChatCompletionNamedToolChoiceParamFunction: TypeAlias = Union[
+    ToolChoiceChatCompletionNamedToolChoiceParamFunctionTyped, Dict[str, object]
+]
+
+
+class ToolChoiceChatCompletionNamedToolChoiceParamTyped(TypedDict, total=False):
+    function: Required[ToolChoiceChatCompletionNamedToolChoiceParamFunction]
+
+    type: Literal["function"]
+
+
+ToolChoiceChatCompletionNamedToolChoiceParam: TypeAlias = Union[
+    ToolChoiceChatCompletionNamedToolChoiceParamTyped, Dict[str, object]
+]
+
+ToolChoice: TypeAlias = Union[Literal["none", "auto", "required"], ToolChoiceChatCompletionNamedToolChoiceParam]
+
+
+class ToolFunctionTyped(TypedDict, total=False):
+    name: Required[str]
+
+    description: Optional[str]
+
+    parameters: Optional[Dict[str, object]]
+
+
+ToolFunction: TypeAlias = Union[ToolFunctionTyped, Dict[str, object]]
+
+
+class ToolTyped(TypedDict, total=False):
+    function: Required[ToolFunction]
+
+    type: Literal["function"]
+
+
+Tool: TypeAlias = Union[ToolTyped, Dict[str, object]]
