@@ -3,9 +3,10 @@
 from __future__ import annotations
 
 from typing import Dict, Union, Iterable, Optional
-from typing_extensions import Literal, Required, TypeAlias, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from ..._types import SequenceNotStr
+from ..._utils import PropertyInfo
 
 __all__ = [
     "CompletionCreateParams",
@@ -75,7 +76,15 @@ class CompletionCreateParams(TypedDict, total=False):
     Will be accessible by the chat template.
     """
 
-    custom_extra_body: Optional[Dict[str, object]]
+    extra_args: Optional[Dict[str, object]]
+    """
+    Additional model-specific or implementation-specific arguments not covered by
+    standard parameters. This allows passing custom parameters that may be specific
+    to certain models or backends. The structure and accepted keys depend on the
+    model and implementation being used.
+    """
+
+    api_extra_body: Annotated[Optional[Dict[str, object]], PropertyInfo(alias="extra_body")]
     """
     Additional parameters to include in the request body that are not part of the
     standard API schema. These parameters are passed directly to the underlying
@@ -83,14 +92,6 @@ class CompletionCreateParams(TypedDict, total=False):
     model-specific options, or implementation-specific parameters that haven't been
     standardized yet. The structure and accepted keys depend on the specific model
     and backend implementation being used.
-    """
-
-    extra_args: Optional[Dict[str, object]]
-    """
-    Additional model-specific or implementation-specific arguments not covered by
-    standard parameters. This allows passing custom parameters that may be specific
-    to certain models or backends. The structure and accepted keys depend on the
-    model and implementation being used.
     """
 
     frequency_penalty: Optional[float]
