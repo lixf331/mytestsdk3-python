@@ -12,7 +12,7 @@ __all__ = [
     "CompletionCreateParams",
     "Message",
     "MessageChatCompletionDeveloperMessageParam",
-    "MessageChatCompletionDeveloperMessageParamContentUnionMember1",
+    "MessageChatCompletionDeveloperMessageParamContentArrayContent",
     "MessageChatCompletionSystemMessageParam",
     "MessageChatCompletionSystemMessageParamContentUnionMember1",
     "MessageChatCompletionUserMessageParam",
@@ -320,14 +320,14 @@ class CompletionCreateParams(TypedDict, total=False):
     """
 
 
-class MessageChatCompletionDeveloperMessageParamContentUnionMember1(TypedDict, total=False):
+class MessageChatCompletionDeveloperMessageParamContentArrayContent(TypedDict, total=False):
     text: Required[str]
 
     type: Required[Literal["text"]]
 
 
 class MessageChatCompletionDeveloperMessageParam(TypedDict, total=False):
-    content: Required[Union[str, Iterable[MessageChatCompletionDeveloperMessageParamContentUnionMember1]]]
+    content: Required[Union[str, Iterable[MessageChatCompletionDeveloperMessageParamContentArrayContent]]]
 
     role: Required[Literal["developer"]]
 
