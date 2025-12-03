@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.2.0 (2025-12-03)
+
+Full Changelog: [v0.1.0...v0.2.0](https://github.com/lixf331/mytestsdk3-python/compare/v0.1.0...v0.2.0)
+
+### Features
+
+* **api:** manual updates ([e80d252](https://github.com/lixf331/mytestsdk3-python/commit/e80d25208a067a797ebb011e9307fd3bd2740e96))
+* **api:** manual updates ([8f93942](https://github.com/lixf331/mytestsdk3-python/commit/8f9394281e46e8ab327112fa71c1cd267f573d76))
+
 ## 0.1.0 (2025-12-03)
 
 Full Changelog: [v0.0.1...v0.1.0](https://github.com/lixf331/mytestsdk3-python/compare/v0.0.1...v0.1.0)
