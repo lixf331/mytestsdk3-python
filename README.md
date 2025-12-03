@@ -16,8 +16,8 @@ The full API of this library can be found in [api.md](api.md).
 ## Installation
 
 ```sh
-# install from this staging repo
-pip install git+ssh://git@github.com/stainless-sdks/mytestsdk3-python.git
+# install from the production repo
+pip install git+ssh://git@github.com/lixf331/mytestsdk3-python.git
 ```
 
 > [!NOTE]
@@ -38,8 +38,8 @@ client = Mytestsdk3(
 completion = client.chat.completions.create(
     messages=[
         {
-            "content": "Explain the importance of low latency LLMs",
             "role": "user",
+            "content": "Explain the importance of low latency LLMs",
         }
     ],
     model="meta-llama/Llama-3.3-70B-Instruct",
@@ -70,8 +70,8 @@ async def main() -> None:
     completion = await client.chat.completions.create(
         messages=[
             {
-                "content": "Explain the importance of low latency LLMs",
                 "role": "user",
+                "content": "Explain the importance of low latency LLMs",
             }
         ],
         model="meta-llama/Llama-3.3-70B-Instruct",
@@ -91,8 +91,8 @@ By default, the async client uses `httpx` for HTTP requests. However, for improv
 You can enable this by installing `aiohttp`:
 
 ```sh
-# install from this staging repo
-pip install 'mytestsdk3[aiohttp] @ git+ssh://git@github.com/stainless-sdks/mytestsdk3-python.git'
+# install from the production repo
+pip install 'mytestsdk3[aiohttp] @ git+ssh://git@github.com/lixf331/mytestsdk3-python.git'
 ```
 
 Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
@@ -111,8 +111,8 @@ async def main() -> None:
         completion = await client.chat.completions.create(
             messages=[
                 {
-                    "content": "Explain the importance of low latency LLMs",
                     "role": "user",
+                    "content": "Explain the importance of low latency LLMs",
                 }
             ],
             model="meta-llama/Llama-3.3-70B-Instruct",
@@ -173,8 +173,8 @@ try:
     client.chat.completions.create(
         messages=[
             {
-                "content": "Explain the importance of low latency LLMs",
                 "role": "user",
+                "content": "Explain the importance of low latency LLMs",
             }
         ],
         model="meta-llama/Llama-3.3-70B-Instruct",
@@ -224,8 +224,8 @@ client = Mytestsdk3(
 client.with_options(max_retries=5).chat.completions.create(
     messages=[
         {
-            "content": "Explain the importance of low latency LLMs",
             "role": "user",
+            "content": "Explain the importance of low latency LLMs",
         }
     ],
     model="meta-llama/Llama-3.3-70B-Instruct",
@@ -255,8 +255,8 @@ client = Mytestsdk3(
 client.with_options(timeout=5.0).chat.completions.create(
     messages=[
         {
-            "content": "Explain the importance of low latency LLMs",
             "role": "user",
+            "content": "Explain the importance of low latency LLMs",
         }
     ],
     model="meta-llama/Llama-3.3-70B-Instruct",
@@ -303,8 +303,8 @@ from mytestsdk3 import Mytestsdk3
 client = Mytestsdk3()
 response = client.chat.completions.with_raw_response.create(
     messages=[{
-        "content": "Explain the importance of low latency LLMs",
         "role": "user",
+        "content": "Explain the importance of low latency LLMs",
     }],
     model="meta-llama/Llama-3.3-70B-Instruct",
 )
@@ -314,9 +314,9 @@ completion = response.parse()  # get the object that `chat.completions.create()`
 print(completion.id)
 ```
 
-These methods return an [`APIResponse`](https://github.com/stainless-sdks/mytestsdk3-python/tree/main/src/mytestsdk3/_response.py) object.
+These methods return an [`APIResponse`](https://github.com/lixf331/mytestsdk3-python/tree/main/src/mytestsdk3/_response.py) object.
 
-The async client returns an [`AsyncAPIResponse`](https://github.com/stainless-sdks/mytestsdk3-python/tree/main/src/mytestsdk3/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
+The async client returns an [`AsyncAPIResponse`](https://github.com/lixf331/mytestsdk3-python/tree/main/src/mytestsdk3/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
 
 #### `.with_streaming_response`
 
@@ -328,8 +328,8 @@ To stream the response body, use `.with_streaming_response` instead, which requi
 with client.chat.completions.with_streaming_response.create(
     messages=[
         {
-            "content": "Explain the importance of low latency LLMs",
             "role": "user",
+            "content": "Explain the importance of low latency LLMs",
         }
     ],
     model="meta-llama/Llama-3.3-70B-Instruct",
@@ -428,7 +428,7 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/stainless-sdks/mytestsdk3-python/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/lixf331/mytestsdk3-python/issues) with questions, bugs, or suggestions.
 
 ### Determining the installed version
 
