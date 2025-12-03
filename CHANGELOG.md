@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.1 (2025-12-03)
+
+Full Changelog: [v0.2.0...v0.2.1](https://github.com/lixf331/mytestsdk3-python/compare/v0.2.0...v0.2.1)
+
+### Chores
+
+* update lockfile ([eb51128](https://github.com/lixf331/mytestsdk3-python/commit/eb511280b72aa4415f1952d31521ecedb3a0bafa))
+
 ## 0.2.0 (2025-12-03)
 
 Full Changelog: [v0.1.0...v0.2.0](https://github.com/lixf331/mytestsdk3-python/compare/v0.1.0...v0.2.0)
