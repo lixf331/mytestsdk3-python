@@ -42,7 +42,7 @@ completion = client.chat.completions.create(
             "role": "user",
         }
     ],
-    model="meta-llama/Llama-3.3-70B-Instruct",
+    model="meta-llama/Llama-3.3-70B-Instruct1",
 )
 print(completion.id)
 ```
@@ -74,7 +74,7 @@ async def main() -> None:
                 "role": "user",
             }
         ],
-        model="meta-llama/Llama-3.3-70B-Instruct",
+        model="meta-llama/Llama-3.3-70B-Instruct1",
     )
     print(completion.id)
 
@@ -115,7 +115,7 @@ async def main() -> None:
                     "role": "user",
                 }
             ],
-            model="meta-llama/Llama-3.3-70B-Instruct",
+            model="meta-llama/Llama-3.3-70B-Instruct1",
         )
         print(completion.id)
 
@@ -148,7 +148,7 @@ completion = client.chat.completions.create(
             "role": "user",
         }
     ],
-    model="meta-llama/Llama-3.3-70B-Instruct",
+    model="meta-llama/Llama-3.3-70B-Instruct1",
     stream_options={},
 )
 print(completion.stream_options)
@@ -177,7 +177,7 @@ try:
                 "role": "user",
             }
         ],
-        model="meta-llama/Llama-3.3-70B-Instruct",
+        model="meta-llama/Llama-3.3-70B-Instruct1",
     )
 except mytestsdk3.APIConnectionError as e:
     print("The server could not be reached")
@@ -228,7 +228,7 @@ client.with_options(max_retries=5).chat.completions.create(
             "role": "user",
         }
     ],
-    model="meta-llama/Llama-3.3-70B-Instruct",
+    model="meta-llama/Llama-3.3-70B-Instruct1",
 )
 ```
 
@@ -259,7 +259,7 @@ client.with_options(timeout=5.0).chat.completions.create(
             "role": "user",
         }
     ],
-    model="meta-llama/Llama-3.3-70B-Instruct",
+    model="meta-llama/Llama-3.3-70B-Instruct1",
 )
 ```
 
@@ -306,7 +306,7 @@ response = client.chat.completions.with_raw_response.create(
         "content": "Explain the importance of low latency LLMs",
         "role": "user",
     }],
-    model="meta-llama/Llama-3.3-70B-Instruct",
+    model="meta-llama/Llama-3.3-70B-Instruct1",
 )
 print(response.headers.get('X-My-Header'))
 
@@ -332,7 +332,7 @@ with client.chat.completions.with_streaming_response.create(
             "role": "user",
         }
     ],
-    model="meta-llama/Llama-3.3-70B-Instruct",
+    model="meta-llama/Llama-3.3-70B-Instruct1",
 ) as response:
     print(response.headers.get("X-My-Header"))
 

@@ -27,7 +27,7 @@ class TestCompletions:
                     "role": "user",
                 }
             ],
-            model="meta-llama/Llama-3.3-70B-Instruct",
+            model="meta-llama/Llama-3.3-70B-Instruct1",
         )
         assert_matches_type(CompletionCreateResponse, completion, path=["response"])
 
@@ -42,7 +42,7 @@ class TestCompletions:
                     "name": "name",
                 }
             ],
-            model="meta-llama/Llama-3.3-70B-Instruct",
+            model="meta-llama/Llama-3.3-70B-Instruct1",
             allowed_token_ids=[0],
             best_of=0,
             chat_template_kwargs={"foo": "bar"},
@@ -109,7 +109,7 @@ class TestCompletions:
                     "role": "user",
                 }
             ],
-            model="meta-llama/Llama-3.3-70B-Instruct",
+            model="meta-llama/Llama-3.3-70B-Instruct1",
         )
 
         assert response.is_closed is True
@@ -127,7 +127,7 @@ class TestCompletions:
                     "role": "user",
                 }
             ],
-            model="meta-llama/Llama-3.3-70B-Instruct",
+            model="meta-llama/Llama-3.3-70B-Instruct1",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -153,7 +153,7 @@ class TestAsyncCompletions:
                     "role": "user",
                 }
             ],
-            model="meta-llama/Llama-3.3-70B-Instruct",
+            model="meta-llama/Llama-3.3-70B-Instruct1",
         )
         assert_matches_type(CompletionCreateResponse, completion, path=["response"])
 
@@ -168,7 +168,7 @@ class TestAsyncCompletions:
                     "name": "name",
                 }
             ],
-            model="meta-llama/Llama-3.3-70B-Instruct",
+            model="meta-llama/Llama-3.3-70B-Instruct1",
             allowed_token_ids=[0],
             best_of=0,
             chat_template_kwargs={"foo": "bar"},
@@ -235,7 +235,7 @@ class TestAsyncCompletions:
                     "role": "user",
                 }
             ],
-            model="meta-llama/Llama-3.3-70B-Instruct",
+            model="meta-llama/Llama-3.3-70B-Instruct1",
         )
 
         assert response.is_closed is True
@@ -253,7 +253,7 @@ class TestAsyncCompletions:
                     "role": "user",
                 }
             ],
-            model="meta-llama/Llama-3.3-70B-Instruct",
+            model="meta-llama/Llama-3.3-70B-Instruct1",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
