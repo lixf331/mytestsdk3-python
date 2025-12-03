@@ -38,11 +38,11 @@ client = Mytestsdk3(
 completion = client.chat.completions.create(
     messages=[
         {
-            "content": "Explain the importance of low latency LLMs",
             "role": "user",
+            "content": "Explain the importance of low latency LLMs",
         }
     ],
-    model="meta-llama/Llama-3.3-70B-Instruct1",
+    model="meta-llama/Llama-3.3-70B-Instruct",
 )
 print(completion.id)
 ```
@@ -70,11 +70,11 @@ async def main() -> None:
     completion = await client.chat.completions.create(
         messages=[
             {
-                "content": "Explain the importance of low latency LLMs",
                 "role": "user",
+                "content": "Explain the importance of low latency LLMs",
             }
         ],
-        model="meta-llama/Llama-3.3-70B-Instruct1",
+        model="meta-llama/Llama-3.3-70B-Instruct",
     )
     print(completion.id)
 
@@ -111,11 +111,11 @@ async def main() -> None:
         completion = await client.chat.completions.create(
             messages=[
                 {
-                    "content": "Explain the importance of low latency LLMs",
                     "role": "user",
+                    "content": "Explain the importance of low latency LLMs",
                 }
             ],
-            model="meta-llama/Llama-3.3-70B-Instruct1",
+            model="meta-llama/Llama-3.3-70B-Instruct",
         )
         print(completion.id)
 
@@ -148,7 +148,7 @@ completion = client.chat.completions.create(
             "role": "user",
         }
     ],
-    model="meta-llama/Llama-3.3-70B-Instruct1",
+    model="meta-llama/Llama-3.3-70B-Instruct",
     stream_options={},
 )
 print(completion.stream_options)
@@ -173,11 +173,11 @@ try:
     client.chat.completions.create(
         messages=[
             {
-                "content": "Explain the importance of low latency LLMs",
                 "role": "user",
+                "content": "Explain the importance of low latency LLMs",
             }
         ],
-        model="meta-llama/Llama-3.3-70B-Instruct1",
+        model="meta-llama/Llama-3.3-70B-Instruct",
     )
 except mytestsdk3.APIConnectionError as e:
     print("The server could not be reached")
@@ -224,11 +224,11 @@ client = Mytestsdk3(
 client.with_options(max_retries=5).chat.completions.create(
     messages=[
         {
-            "content": "Explain the importance of low latency LLMs",
             "role": "user",
+            "content": "Explain the importance of low latency LLMs",
         }
     ],
-    model="meta-llama/Llama-3.3-70B-Instruct1",
+    model="meta-llama/Llama-3.3-70B-Instruct",
 )
 ```
 
@@ -255,11 +255,11 @@ client = Mytestsdk3(
 client.with_options(timeout=5.0).chat.completions.create(
     messages=[
         {
-            "content": "Explain the importance of low latency LLMs",
             "role": "user",
+            "content": "Explain the importance of low latency LLMs",
         }
     ],
-    model="meta-llama/Llama-3.3-70B-Instruct1",
+    model="meta-llama/Llama-3.3-70B-Instruct",
 )
 ```
 
@@ -303,10 +303,10 @@ from mytestsdk3 import Mytestsdk3
 client = Mytestsdk3()
 response = client.chat.completions.with_raw_response.create(
     messages=[{
-        "content": "Explain the importance of low latency LLMs",
         "role": "user",
+        "content": "Explain the importance of low latency LLMs",
     }],
-    model="meta-llama/Llama-3.3-70B-Instruct1",
+    model="meta-llama/Llama-3.3-70B-Instruct",
 )
 print(response.headers.get('X-My-Header'))
 
@@ -328,11 +328,11 @@ To stream the response body, use `.with_streaming_response` instead, which requi
 with client.chat.completions.with_streaming_response.create(
     messages=[
         {
-            "content": "Explain the importance of low latency LLMs",
             "role": "user",
+            "content": "Explain the importance of low latency LLMs",
         }
     ],
-    model="meta-llama/Llama-3.3-70B-Instruct1",
+    model="meta-llama/Llama-3.3-70B-Instruct",
 ) as response:
     print(response.headers.get("X-My-Header"))
 
