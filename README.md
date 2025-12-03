@@ -42,7 +42,7 @@ completion = client.chat.completions.create(
             "content": "Explain the importance of low latency LLMs",
         }
     ],
-    model="meta-llama/Llama-3.3-70B-Instruct1",
+    model="meta-llama/Llama-3.3-70B-Instruct",
 )
 print(completion.id)
 ```
@@ -74,7 +74,7 @@ async def main() -> None:
                 "content": "Explain the importance of low latency LLMs",
             }
         ],
-        model="meta-llama/Llama-3.3-70B-Instruct1",
+        model="meta-llama/Llama-3.3-70B-Instruct",
     )
     print(completion.id)
 
@@ -115,7 +115,7 @@ async def main() -> None:
                     "content": "Explain the importance of low latency LLMs",
                 }
             ],
-            model="meta-llama/Llama-3.3-70B-Instruct1",
+            model="meta-llama/Llama-3.3-70B-Instruct",
         )
         print(completion.id)
 
@@ -177,7 +177,7 @@ try:
                 "content": "Explain the importance of low latency LLMs",
             }
         ],
-        model="meta-llama/Llama-3.3-70B-Instruct1",
+        model="meta-llama/Llama-3.3-70B-Instruct",
     )
 except mytestsdk3.APIConnectionError as e:
     print("The server could not be reached")
@@ -228,7 +228,7 @@ client.with_options(max_retries=5).chat.completions.create(
             "content": "Explain the importance of low latency LLMs",
         }
     ],
-    model="meta-llama/Llama-3.3-70B-Instruct1",
+    model="meta-llama/Llama-3.3-70B-Instruct",
 )
 ```
 
@@ -259,7 +259,7 @@ client.with_options(timeout=5.0).chat.completions.create(
             "content": "Explain the importance of low latency LLMs",
         }
     ],
-    model="meta-llama/Llama-3.3-70B-Instruct1",
+    model="meta-llama/Llama-3.3-70B-Instruct",
 )
 ```
 
@@ -306,7 +306,7 @@ response = client.chat.completions.with_raw_response.create(
         "role": "user",
         "content": "Explain the importance of low latency LLMs",
     }],
-    model="meta-llama/Llama-3.3-70B-Instruct1",
+    model="meta-llama/Llama-3.3-70B-Instruct",
 )
 print(response.headers.get('X-My-Header'))
 
@@ -332,7 +332,7 @@ with client.chat.completions.with_streaming_response.create(
             "content": "Explain the importance of low latency LLMs",
         }
     ],
-    model="meta-llama/Llama-3.3-70B-Instruct1",
+    model="meta-llama/Llama-3.3-70B-Instruct",
 ) as response:
     print(response.headers.get("X-My-Header"))
 
